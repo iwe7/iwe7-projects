@@ -3,7 +3,7 @@ import { Iwe7BaseDirective } from 'iwe7-base';
 @Component({
   selector: "[<%= name %>]"
 })
-export class <%= name %>Component extends Iwe7BaseDirective {
+export class <%= name %>Directive extends Iwe7BaseDirective {
   constructor(injector){
     super(injector,"<%= name %>");
   }
