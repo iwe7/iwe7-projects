@@ -7,7 +7,7 @@ import {
   SimpleChanges
 } from "@angular/core";
 import { fromPromise } from "rxjs/observable/fromPromise";
-import { filter, map } from "rxjs/operators";
+import { filter, map, tap } from "rxjs/operators";
 
 @Directive({
   selector: "[ngElement]"
@@ -25,10 +25,14 @@ export class NgElementDirective implements OnInit, OnChanges {
   }
 
   private createElement() {
+    if (!this.ngElement) {
+      return;
+    }
     fromPromise(
       customElements.whenDefined(this.ngElement).then(res => this.ngElement)
     )
       .pipe(
+        tap(res => this.view.clear()),
         map(selector => document.createElement(selector)),
         filter(res => !!res),
         map((res: any) => res.ngElementStrategy),

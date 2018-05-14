@@ -1,12 +1,12 @@
-import { Component, Injector } from '@angular/core';
-import { <%= name %>Directive } from './<%= name %>.directive';
+import { Component, Injector } from "@angular/core";
+import { <%= classify(name) %>Directive } from "./<%= name %>.directive";
 @Component({
   selector: "<%= name %>",
   templateUrl: "./<%= name %>.component.html",
   styleUrls: ["./<%= name %>.component.scss"]
 })
-export class <%= name %>Component extends <%= name %>Directive{
-  constructor(injector){
-    super(injector,"<%= name %>");
+export class <%= classify(name) %>Component extends <%= classify(name) %>Directive {
+  constructor(injector: Injector) {
+    super(injector);
   }
 }

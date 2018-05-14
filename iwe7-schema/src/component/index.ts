@@ -59,6 +59,7 @@ function transform(options: PipeOptions): PipeOptions {
 function generate(options: PipeOptions): Source {
   return apply(url("./files"), [
     template({
+      ...strings,
       ...options
     }),
     move(join(options.path as Path, options.name))

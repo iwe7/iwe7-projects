@@ -1,6 +1,6 @@
 {
   "name": "iwe7-schema",
-  "version": "0.3.9",
+  "version": "0.5.2",
   "scripts": {
     "build": "gulp build",
     "watch": "gulp",
