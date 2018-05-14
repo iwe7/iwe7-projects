@@ -40,7 +40,6 @@ export class We7LocationStrategy extends LocationStrategy {
   }
   prepareExternalUrl(internal: string): string {
     let _dos = internal.split("/");
-
     let parse = this.queryString;
     parse["do"] = _dos[_dos.length - 1];
     let newUrl = stringify(parse);
@@ -63,7 +62,6 @@ export class We7LocationStrategy extends LocationStrategy {
     queryParams: string
   ): void {
     let newUrl = stringify(this.queryString);
-    console.dir(queryParams);
     this._platformLocation.replaceState(
       state,
       title,
@@ -81,7 +79,6 @@ export class We7LocationStrategy extends LocationStrategy {
     this._platformLocation.onHashChange(fn);
   }
   getBaseHref(): string {
-    this._path = this._path || "/";
-    return this._path ? this._path + "" : "/";
+    return "/";
   }
 }
