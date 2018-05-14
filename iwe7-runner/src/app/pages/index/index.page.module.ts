@@ -3,12 +3,12 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 
-import { CdkTableModule } from "@angular/cdk/table";
 import { IndexPage } from "./index.page";
+import { AdSimpleTableModule } from '@delon/abc';
 @NgModule({
   imports: [
     CommonModule,
-    CdkTableModule,
+    AdSimpleTableModule,
     HttpClientModule,
     RouterModule.forChild([
       {
