@@ -27,17 +27,10 @@ import { NzCardMetaComponent } from "./nz-card-meta/nz-card-meta.component";
     NzCardComponent,
     NzCardTabComponent,
     NzCardMetaComponent
-  ],
-  entryComponents: [NzCardComponent, NzCardLoadingComponent]
+  ]
 })
 export class NzCardModule extends Iwe7BaseModule {
   constructor(injector: Injector) {
     super(injector);
-    this.register();
-  }
-
-  register() {
-    this.registerElement("nz-card", NzCardComponent);
-    this.registerElement("nz-card-loading", NzCardLoadingComponent);
   }
 }
