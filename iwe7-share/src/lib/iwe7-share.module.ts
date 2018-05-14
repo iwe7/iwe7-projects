@@ -3,10 +3,17 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgZorroAntdModule } from "ng-zorro-antd";
+
+import { TranslateModule } from "@ngx-translate/core";
+
+// delon
 import { AlainThemeModule } from "@delon/theme";
-import { TranslateModule } from '@ngx-translate/core';
+import { DelonABCModule } from "@delon/abc";
+import { DelonACLModule } from "@delon/acl";
+import { DelonFormModule } from "@delon/form";
+
 @NgModule({
-  imports: [AlainThemeModule.forChild()],
+  imports: [AlainThemeModule.forChild(), TranslateModule],
   exports: [
     HttpClientModule,
     FormsModule,
@@ -14,7 +21,10 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     NgZorroAntdModule,
     AlainThemeModule,
-    TranslateModule
+    TranslateModule,
+    DelonABCModule,
+    DelonACLModule,
+    DelonFormModule
   ]
 })
 export class Iwe7ShareModule {}
