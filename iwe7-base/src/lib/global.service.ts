@@ -11,9 +11,9 @@ import { createCustomElement } from "@angular/elements";
 declare const window: any;
 
 export function factoryGlobalService() {
-  (<any>window).GlobalService =
-    (<any>window).GlobalService || new GlobalService();
-  return (<any>window).GlobalService;
+  (<any>window).meepo =
+    (<any>window).meepo || new GlobalService();
+  return (<any>window).meepo;
 }
 
 @Injectable({
