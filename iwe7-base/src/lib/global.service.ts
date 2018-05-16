@@ -16,7 +16,7 @@ export function factoryGlobalService() {
   meepo = meepo || {};
   meepo.elements = meepo.elements || new ElementService();
   (<any>window).meepo = meepo;
-  return (<any>window).meepo;
+  return meepo.elements;
 }
 
 @Injectable({
