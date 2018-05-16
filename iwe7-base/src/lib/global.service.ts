@@ -11,8 +11,11 @@ import { createCustomElement } from "@angular/elements";
 declare const window: any;
 
 export function factoryGlobalService() {
-  (<any>window).meepo =
-    (<any>window).meepo || new GlobalService();
+  (<any>window).meepo = (<any>window).meepo || {};
+  let { meepo } = (<any>window);
+  meepo = meepo || {};
+  meepo.elements = meepo.elements || new ElementService();
+  (<any>window).meepo = meepo;
   return (<any>window).meepo;
 }
 
@@ -20,10 +23,10 @@ export function factoryGlobalService() {
   providedIn: "root",
   useFactory: factoryGlobalService
 })
-export class GlobalService {
+export class ElementService {
   map: Map<string, NgElementConstructor<any>> = new Map();
 
-  constructor() {}
+  constructor() { }
 
   init(injector: Injector) {
     const factoryResolver = injector.get(ComponentFactoryResolver);

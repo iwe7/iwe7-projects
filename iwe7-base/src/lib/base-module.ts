@@ -1,8 +1,8 @@
 import { Injector } from "@angular/core";
-import { GlobalService } from "./global.service";
+import { ElementService } from "./global.service";
 export abstract class Iwe7BaseModule {
   constructor(public injector: Injector) {
-    const _g = this.injector.get(GlobalService);
+    const _g = this.injector.get(ElementService);
     _g.init(injector);
   }
 }
