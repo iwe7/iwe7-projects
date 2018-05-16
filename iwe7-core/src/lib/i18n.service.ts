@@ -9,7 +9,9 @@ import * as df_zh_cn from "date-fns/locale/zh_cn";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingsService, AlainI18NService } from "@delon/theme";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class I18NService implements AlainI18NService {
   private _default = "zh-CN";
   private change$ = new BehaviorSubject<string>(null);

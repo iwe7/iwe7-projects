@@ -1,6 +1,5 @@
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from "@angular/core";
 import { LocationStrategy, APP_BASE_HREF } from "@angular/common";
-import { We7LocationStrategy } from "iwe7-router";
 import { RouterModule } from "@angular/router";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -10,7 +9,11 @@ import {
   SimpleInterceptor,
   DelonAuthConfig
 } from "@delon/auth";
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule
+} from "@angular/common/http";
 
 export function delonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
@@ -34,16 +37,26 @@ import { ALAIN_I18N_TOKEN } from "@delon/theme";
 import { I18NService } from "./i18n.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, `assets/i18n/`, '.json');
+  return new TranslateHttpLoader(http, `assets/i18n/`, ".json");
 }
+import { DefaultInterceptor } from "./default.interceptor";
+import { RouteReuseStrategy } from "@angular/router";
+import { DelonABCModule, ReuseTabService, ReuseTabStrategy } from "@delon/abc";
+import { StartupService } from "./startup.service";
+// export const StartupServiceFactory = (startupService: StartupService) => {
+//   return () => startupService.load();
+// };
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    DelonABCModule.forRoot(),
+    // abc
     AlainThemeModule.forRoot(),
     NgZorroAntdModule.forRoot(),
+    // abc end
     RouterModule.forRoot([]),
     DelonAuthModule.forRoot(),
     DelonACLModule.forRoot(),
@@ -60,15 +73,27 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     {
-      provide: LocationStrategy,
-      useClass: We7LocationStrategy
-    },
-    {
       provide: APP_BASE_HREF,
       useValue: "/"
     },
     { provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true },
-    { provide: DelonAuthConfig, useFactory: delonAuthConfig }
+    { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
+    { provide: ALAIN_I18N_TOKEN, useClass: I18NService, multi: false },
+    { provide: DelonAuthConfig, useFactory: delonAuthConfig },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: () => {
+    //     return () => {};
+    //   },
+    //   multi: true,
+    //   deps: [StartupService]
+    // },
+    {
+      provide: RouteReuseStrategy,
+      useClass: ReuseTabStrategy,
+      deps: [ReuseTabService]
+    },
+    { provide: LOCALE_ID, useValue: "zh-Hans" }
   ]
 })
 export class Iwe7CoreModule {}

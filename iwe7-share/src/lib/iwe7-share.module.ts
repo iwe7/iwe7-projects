@@ -8,9 +8,11 @@ import { TranslateModule } from "@ngx-translate/core";
 
 // delon
 import { AlainThemeModule } from "@delon/theme";
-import { DelonABCModule } from "@delon/abc";
 import { DelonACLModule } from "@delon/acl";
 import { DelonFormModule } from "@delon/form";
+
+import { AdReuseTabModule } from '@delon/abc';
+import { DelonABCModule } from '@delon/abc';
 
 @NgModule({
   imports: [AlainThemeModule.forChild(), TranslateModule],
@@ -24,7 +26,8 @@ import { DelonFormModule } from "@delon/form";
     TranslateModule,
     DelonABCModule,
     DelonACLModule,
-    DelonFormModule
+    DelonFormModule,
+    AdReuseTabModule
   ]
 })
 export class Iwe7ShareModule {}

@@ -1,9 +1,15 @@
-import { Injector, Type } from "@angular/core";
+import { Injector, Type, ComponentFactoryResolver } from "@angular/core";
 import { createCustomElement } from "@angular/elements";
 import { Observable, of } from "rxjs";
 import { fromPromise } from "rxjs/observable/fromPromise";
 export abstract class Iwe7BaseModule {
-  constructor(public injector: Injector) {}
+  constructor(private injector: Injector) {
+    const factoryResolver = this.injector.get(ComponentFactoryResolver);
+    const _factories = (<any>factoryResolver)._factories;
+    _factories.forEach((item, key) => {
+      this.registerElement(item.selector, item.componentType);
+    });
+  }
 
   registerElement(selector: string, type: Type<any>): Observable<string> {
     // 检查是否已经存在
