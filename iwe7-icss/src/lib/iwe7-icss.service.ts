@@ -20,8 +20,7 @@ export class Iwe7IcssService {
       }),
       map(style => {
         return style;
-      }),
-      tap(res => console.log(res))
+      })
     );
   }
 
