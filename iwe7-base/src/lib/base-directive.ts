@@ -50,10 +50,14 @@ export abstract class Iwe7BaseDirective
     this.ele = this.injector.get(ElementRef);
     this.icss = this.injector.get(Iwe7IcssService);
     this.render.addClass(this.ele.nativeElement, this.prefixCls);
+    this.icss.init(this.style$, this.ele).subscribe(res => {});
+    this.render.addClass(
+      this.ele.nativeElement,
+      `${this.prefixCls}-${this.theme}`
+    );
   }
 
   ngOnInit() {
-    this.icss.init(this.style$, this.ele).subscribe(res => {});
     this.setClass();
   }
 
