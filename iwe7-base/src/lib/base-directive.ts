@@ -9,9 +9,10 @@ import {
   SimpleChanges,
   SimpleChange
 } from "@angular/core";
-import { forEach, defaultsDeep, kebabCase } from "lodash";
 import { Iwe7IcssService } from "iwe7-icss";
 import { BehaviorSubject } from "rxjs";
+
+import * as _ from "lodash";
 
 export abstract class Iwe7BaseDirective
   implements OnInit, OnDestroy, OnChanges {
@@ -29,7 +30,7 @@ export abstract class Iwe7BaseDirective
     return this._classObj;
   }
   set classObj(val: { [key: string]: boolean }) {
-    this._classObj = defaultsDeep(val, this._classObj);
+    this._classObj = _.defaultsDeep(val, this._classObj);
   }
   // style样式
   private _styleObj: { [key: string]: any } = {};
@@ -38,7 +39,7 @@ export abstract class Iwe7BaseDirective
   );
   @Input()
   set styleObj(val: { [key: string]: any }) {
-    this._styleObj = defaultsDeep(val, this._styleObj);
+    this._styleObj = _.defaultsDeep(val, this._styleObj);
     this.style$.next(this._styleObj);
   }
   get styleObj(): { [key: string]: any } {
@@ -50,7 +51,7 @@ export abstract class Iwe7BaseDirective
     this.ele = this.injector.get(ElementRef);
     this.icss = this.injector.get(Iwe7IcssService);
     this.render.addClass(this.ele.nativeElement, this.prefixCls);
-    this.icss.init(this.style$, this.ele).subscribe(res => {});
+    this.icss.init(this.style$, this.ele).subscribe(res => { });
     this.render.addClass(
       this.ele.nativeElement,
       `${this.prefixCls}-${this.theme}`
@@ -61,7 +62,7 @@ export abstract class Iwe7BaseDirective
     this.setClass();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 
   ngOnChanges(changes: SimpleChanges) {
     if ("classObj" in changes) {
@@ -92,7 +93,7 @@ export abstract class Iwe7BaseDirective
   }
   // 设置class样式
   setClass() {
-    forEach(this.classObj, (value, key) => {
+    _.forEach(this.classObj, (value, key) => {
       if (value) {
         this.render.addClass(
           this.ele.nativeElement,

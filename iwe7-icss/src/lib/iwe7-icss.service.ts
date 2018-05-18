@@ -1,9 +1,7 @@
 import { Injectable, ElementRef } from "@angular/core";
 import { Observable, merge } from "rxjs";
 import { map, tap } from "rxjs/operators";
-
-import { defaultsDeep } from "lodash";
-
+import * as _ from "lodash";
 @Injectable({
   providedIn: "root"
 })
@@ -14,7 +12,7 @@ export class Iwe7IcssService {
     // 合并流
     return ob.pipe(
       map(style => {
-        this.state = defaultsDeep(style, this.state);
+        this.state = _.defaultsDeep(style, this.state);
         this.styledash(ele.nativeElement, this.state);
         return this.state;
       }),

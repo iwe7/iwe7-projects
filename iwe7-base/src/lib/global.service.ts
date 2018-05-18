@@ -5,9 +5,9 @@ import {
   ComponentFactoryResolver
 } from "@angular/core";
 import { NgElementConstructor } from "@angular/elements";
-import { Observable, of } from "rxjs";
-import { fromPromise } from "rxjs/observable/fromPromise";
 import { createCustomElement } from "@angular/elements";
+import { Observable, of, from } from "rxjs";
+
 declare const window: any;
 
 export function factoryGlobalService() {
@@ -56,7 +56,7 @@ export class ElementService {
       });
       customElements.define(selector, ngElementConstructor);
       this.set(selector, ngElementConstructor);
-      return fromPromise(
+      return from(
         customElements.whenDefined(selector).then(res => selector)
       );
     } else {
