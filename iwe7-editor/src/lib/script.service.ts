@@ -1,11 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 declare const document: any;
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class ScriptService {
   private loaded = false;
   private list: any = {};
@@ -37,26 +35,26 @@ export class ScriptService {
         resolve(<any>{
           path: path,
           loaded: true,
-          status: "Loaded"
+          status: 'Loaded',
         });
         return;
       }
 
       this.list[path] = true;
 
-      const node = document.createElement("script");
-      node.type = "text/javascript";
+      const node = document.createElement('script');
+      node.type = 'text/javascript';
       node.src = path;
-      node.charset = "utf-8";
+      node.charset = 'utf-8';
       if (node.readyState) {
         // IE
         node.onreadystatechange = () => {
-          if (node.readyState === "loaded" || node.readyState === "complete") {
+          if (node.readyState === 'loaded' || node.readyState === 'complete') {
             node.onreadystatechange = null;
             resolve(<any>{
               path: path,
               loaded: true,
-              status: "Loaded"
+              status: 'Loaded',
             });
           }
         };
@@ -65,7 +63,7 @@ export class ScriptService {
           resolve(<any>{
             path: path,
             loaded: true,
-            status: "Loaded"
+            status: 'Loaded',
           });
         };
       }
@@ -73,9 +71,9 @@ export class ScriptService {
         resolve(<any>{
           path: path,
           loaded: false,
-          status: "Loaded"
+          status: 'Loaded',
         });
-      document.getElementsByTagName("head")[0].appendChild(node);
+      document.getElementsByTagName('head')[0].appendChild(node);
     });
   }
 }

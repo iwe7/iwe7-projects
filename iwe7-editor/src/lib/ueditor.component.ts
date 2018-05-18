@@ -13,8 +13,7 @@ import {
   AfterViewInit,
   OnChanges,
   SimpleChanges,
-  NgZone,
-  ViewChild
+  NgZone
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
@@ -45,7 +44,7 @@ export type EventTypes =
 @Component({
   selector: "ueditor",
   template: `
-  <textarea #textarea id="{{id}}" class="ueditor-textarea"></textarea>
+  <textarea id="{{id}}" class="ueditor-textarea"></textarea>
   <div *ngIf="loading" class="loading" [innerHTML]="loadingTip"></div>
   `,
   preserveWhitespaces: false,
@@ -63,15 +62,13 @@ export type EventTypes =
 })
 export class UEditorComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy, ControlValueAccessor {
-  private instance: any;
-  private value: string;
-  private inited = false;
-  private events: any = {};
+  instance: any;
+  value: string;
+  inited = false;
+  events: any = {};
 
-  @ViewChild("textarea") textarea: ElementRef;
-
-  private onChange: (value: string) => void;
-  private onTouched: () => void;
+  onChange: (value: string) => void;
+  onTouched: () => void;
 
   loading = true;
   id = `_ueditor-${Math.random()
@@ -85,7 +82,7 @@ export class UEditorComponent
     this._disabled = value;
     this.setDisabled();
   }
-  private _disabled = false;
+  _disabled = false;
 
   @Output() readonly onPreReady = new EventEmitter<UEditorComponent>();
   @Output() readonly onReady = new EventEmitter<UEditorComponent>();
@@ -125,7 +122,7 @@ export class UEditorComponent
     }
   }
 
-  private init(options?: any) {
+  init(options?: any) {
     if (!window.UE) throw new Error("uedito js文件加载失败");
 
     if (this.instance) return;
@@ -140,7 +137,7 @@ export class UEditorComponent
 
     const opt = Object.assign({}, this.cog.options, this.config, options);
 
-    const ueditor = UE.getEditor(this.textarea.nativeElement, opt);
+    const ueditor = UE.getEditor(this.id, opt);
     ueditor.ready(() => {
       this.instance = ueditor;
       if (this.value) this.instance.setContent(this.value);
@@ -156,7 +153,7 @@ export class UEditorComponent
     this.cd.detectChanges();
   }
 
-  private destroy() {
+  destroy() {
     if (this.instance) {
       for (const ki of this.events) {
         this.instance.removeListener(ki, this.events[ki]);
@@ -169,7 +166,7 @@ export class UEditorComponent
     this.onDestroy.emit();
   }
 
-  private setDisabled() {
+  setDisabled() {
     if (!this.instance) return;
     if (this._disabled) {
       this.instance.setDisabled();
