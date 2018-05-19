@@ -1,0 +1,9 @@
+<ng-container *ngFor="let item of list">
+  <ul class="anticons-list clearfix icons">
+    <li *ngFor="let icon of item.list">
+      <button nz-button nzShape="circle" [class.active]="_icon === 'anticon anticon-'+icon">
+        <i (click)="doSelect(icon)" class="anticon anticon-{{icon}}"></i>
+      </button>
+    </li>
+  </ul>
+</ng-container>
