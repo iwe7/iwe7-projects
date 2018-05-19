@@ -85,6 +85,7 @@ export class Iwe7ScriptService {
           loaded: true,
           status: 'Loaded'
         });
+        observer.complete();
       } else {
         this.list[path] = true;
         let node = document.createElement('link');
@@ -97,6 +98,7 @@ export class Iwe7ScriptService {
           loaded: true,
           status: 'Loaded'
         });
+        observer.complete();
       }
     });
   }
