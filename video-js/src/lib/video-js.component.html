@@ -1,0 +1,7 @@
+<video [class.fullScreen]="isFull" #video class="video-js" [style.object-fit]="fill ? 'fill': 'contain'" [controls]="controls"
+  [preload]="preload" [attr.poster]="poster" data-setup='{}'>
+  <source *ngFor="let item of sources" [src]="item.src" [attr.type]="item.type" />
+  <p class="vjs-no-js">
+    <ng-content></ng-content>
+  </p>
+</video>

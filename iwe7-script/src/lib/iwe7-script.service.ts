@@ -9,26 +9,29 @@ import { tap } from "rxjs/operators";
 })
 export class Iwe7ScriptService {
   private loaded = false;
-  private list: any = {};
+  private list: Map<string, boolean> = new Map();
 
-  constructor(@Inject(DOCUMENT) public doc: any) { }
+  constructor(@Inject(DOCUMENT) public doc: any) {}
 
   load(path: string[]) {
-    const ob: Observable<any>[] = [];
+    // 加载jquery
+    // 加载bootstrap
+    // 加载插件
+    const obs: Observable<any>[] = [];
     path.map(res => {
-      if (res.indexOf('.css') > -1) {
-        ob.push(this.loadCss(res))
+      if (res.indexOf(".css") > -1) {
+        obs.push(this.loadCss(res));
       }
-      if (res.indexOf('.js') > -1) {
-        ob.push(this.loadScript(res));
+      if (res.indexOf(".js") > -1) {
+        obs.push(this.loadScript(res));
       }
     });
-    return forkJoin(...ob);
+    return forkJoin(...obs);
   }
 
   loadScript(path: string): Observable<any> {
     return Observable.create(observer => {
-      if (this.list[path] === true) {
+      if (this.list.get(path) === true) {
         observer.next(<any>{
           path: path,
           loaded: true,
@@ -36,7 +39,6 @@ export class Iwe7ScriptService {
         });
         observer.complete();
       } else {
-        this.list[path] = true;
         const node = this.doc.createElement("script");
         node.type = "text/javascript";
         node.src = path;
@@ -54,6 +56,7 @@ export class Iwe7ScriptService {
                 status: "Loaded"
               });
               observer.complete();
+              this.list.set(path, true);
             }
           };
         } else {
@@ -64,6 +67,7 @@ export class Iwe7ScriptService {
               status: "Loaded"
             });
             observer.complete();
+            this.list.set(path, true);
           };
         }
         node.onerror = (error: any) =>
@@ -79,26 +83,26 @@ export class Iwe7ScriptService {
 
   loadCss(path: string): Observable<any> {
     return Observable.create(observer => {
-      if (this.list[path] === true) {
+      if (this.list.get(path) === true) {
         observer.next(<any>{
           path: path,
           loaded: true,
-          status: 'Loaded'
+          status: "Loaded"
         });
         observer.complete();
       } else {
-        this.list[path] = true;
-        let node = document.createElement('link');
-        node.rel = 'stylesheet';
-        node.type = 'text/css';
+        let node = document.createElement("link");
+        node.rel = "stylesheet";
+        node.type = "text/css";
         node.href = path;
-        document.getElementsByTagName('head')[0].appendChild(node);
+        document.getElementsByTagName("head")[0].appendChild(node);
         observer.next(<any>{
           path: path,
           loaded: true,
-          status: 'Loaded'
+          status: "Loaded"
         });
         observer.complete();
+        this.list.set(path, true);
       }
     });
   }

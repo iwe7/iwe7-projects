@@ -1,0 +1,13 @@
+
+.fullScreen{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 99;
+}
+:host{
+  display: block;
+  height: 495px;
+}
