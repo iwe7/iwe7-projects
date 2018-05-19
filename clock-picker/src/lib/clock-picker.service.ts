@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: "root"
 })
-export class ColokPickerService {
+export class ClockPickerService {
   constructor(public url: Iwe7UrlService, public script: Iwe7ScriptService) {}
   load(): Observable<any> {
     const root = `${this.url.root}web/resource/`;

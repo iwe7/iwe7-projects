@@ -329,13 +329,15 @@ export class AntdIconPickerComponent implements ControlValueAccessor {
     }
   ];
   _icon: string;
-  private _change: (_: any) => {};
   @Output() onSelect: EventEmitter<string> = new EventEmitter();
   doSelect(item: string) {
     const val = "anticon anticon-" + item;
     this.onSelect.emit(val);
     this._change(val);
   }
+
+  private _change: (_: any) => {};
+
   public writeValue(obj: string) {
     if (obj) {
       this._icon = obj;
